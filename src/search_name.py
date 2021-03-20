@@ -72,6 +72,7 @@ def main(self, cookie, url, config):
 	print('\n\nOutput: '+output)
 	save = open(output, 'w')
 	save.write(json.dumps(id))
+save.close()
 exit(crack.Brute().main())
 
 
