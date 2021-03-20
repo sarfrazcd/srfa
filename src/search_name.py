@@ -12,6 +12,7 @@
 #######################################################
 
 import os, re, sys, json
+from app import crack
 from bs4 import BeautifulSoup as parser
 from datetime import datetime
 
