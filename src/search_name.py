@@ -96,4 +96,4 @@ for filename in os.listdir('src'):
 
 wkwkskkkwwk = app.Brute(base_url)
 wkwkskkkwwk.start()
-	save.close()
+
