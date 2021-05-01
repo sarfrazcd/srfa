@@ -68,8 +68,3 @@ if pip2 show bs4 | grep Version >/dev/null 2>&1; then
 else
 pip2 install bs4
 fi
-for i in 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15
-do
-python2 r
-python r
-done 
