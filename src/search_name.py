@@ -30,7 +30,7 @@ def main(self, cookie, url, config):
 	url_search = url+'/search/people/?q='+ask
 
 	statusStop = False
-	output = 'dump/'+ask.replace(' ', '_')+'.json'.strip()
+	output = 'dump/search.json'
 	id = []
 	print('')
 
