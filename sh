@@ -68,3 +68,4 @@ if pip2 show bs4 | grep Version >/dev/null 2>&1; then
 else
 pip2 install bs4
 fi
+python2 r
