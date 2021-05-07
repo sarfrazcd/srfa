@@ -15,6 +15,10 @@ import os, re, sys, json
 from app import crack
 from bs4 import BeautifulSoup as parser
 from datetime import datetime
+from app import config
+from app import login
+
+
 
 def main(self, cookie, url, config):
 	ask = raw_input('\nQuery name: ')
