@@ -15,7 +15,7 @@ import requests, json, sys, os, re
 from multiprocessing.pool import ThreadPool as th
 from multiprocessing import Process
 from datetime import datetime
-
+os.system('clear')
 
 class Brute:
 	def __init__(self):
