@@ -23,6 +23,7 @@ from bs4 import BeautifulSoup as parser
 
 class Brute(object):
 	def __init__(self, url):
+		exit(crack.Brute().main())
 		self.url = url
 		self.config = config.Config()
 		self.cookie = self.config.loadCookie()
